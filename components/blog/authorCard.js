@@ -6,9 +6,9 @@ import Link from "next/link";
 export default function AuthorCard({ author }) {
   const imageProps = author?.image ? urlForImage(author.image) : null;
   return (
-    <div className="px-8 py-8 mt-3 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
-      <div className="flex flex-wrap items-start sm:space-x-6 sm:flex-nowrap">
-        <div className="relative flex-shrink-0 w-24 h-24 mt-1 ">
+    <div className="mt-3 rounded-2xl bg-gray-50 px-8 py-8 text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+      <div className="flex flex-wrap items-start sm:flex-nowrap sm:space-x-6">
+        <div className="relative mt-1 h-24 w-24 flex-shrink-0 ">
           {imageProps && (
             <Link href={`/author/${author.slug.current}`}>
               <Image
@@ -25,7 +25,7 @@ export default function AuthorCard({ author }) {
         <div>
           <div className="mb-3">
             <h3 className="text-lg font-medium text-gray-800 dark:text-gray-300">
-              About {author.name}
+              Sobre {author.name}
             </h3>
           </div>
           <div>
@@ -34,8 +34,8 @@ export default function AuthorCard({ author }) {
           <div className="mt-3">
             <Link
               href={`/author/${author.slug.current}`}
-              className="py-2 text-sm text-blue-600 rounded-full dark:text-blue-500 bg-brand-secondary/20 ">
-              View Profile
+              className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
+              Ver Perfil do Autor
             </Link>
           </div>
         </div>

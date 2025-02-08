@@ -24,38 +24,46 @@ export default function PostList({
   return (
     <>
       <div
+        id="TESTE2"
         className={cx(
           "group cursor-pointer",
           minimal && "grid gap-10 md:grid-cols-2"
-        )}>
+        )}
+        style={{
+          width: "fit-content"
+        }}>
         <div
+          id="TESTE"
           className={cx(
-            " overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105   dark:bg-gray-800"
-          )}>
+            " overflow-hidden rounded-md  transition-all hover:scale-105   dark:bg-gray-800"
+          )}
+          style={{
+            display: "inline-block"
+          }}>
           <Link
             className={cx(
               "relative block",
               aspect === "landscape"
                 ? "aspect-video"
                 : aspect === "custom"
-                ? "aspect-[5/4]"
-                : "aspect-square"
+                  ? "aspect-[5/4]"
+                  : "aspect-square"
             )}
             href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${
               post.slug?.current
-            }`}>
+            }`}
+            style={{
+              width: "100%"
+            }}>
             {imageProps ? (
-              <Image
+              <img
                 src={imageProps.src}
-                {...(post.mainImage.blurDataURL && {
-                  placeholder: "blur",
-                  blurDataURL: post.mainImage.blurDataURL
-                })}
                 alt={post.mainImage?.alt || "Thumbnail"}
-                priority={preloadImage ? true : false}
                 className="object-cover transition-all"
-                fill
-                sizes="(max-width: 768px) 30vw, 33vw"
+                style={{
+                  maxHeight: "400px",
+                  width: "auto"
+                }} // Prevents unwanted gaps
               />
             ) : (
               <span className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 text-gray-200">
@@ -76,8 +84,8 @@ export default function PostList({
                 fontSize === "large"
                   ? "text-2xl"
                   : minimal
-                  ? "text-3xl"
-                  : "text-lg",
+                    ? "text-3xl"
+                    : "text-lg",
                 fontWeight === "normal"
                   ? "line-clamp-2 font-medium  tracking-normal text-black"
                   : "font-semibold leading-snug tracking-tight",

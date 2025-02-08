@@ -15,8 +15,10 @@ import {
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { table } from "@sanity/table";
 import { codeInput } from "@sanity/code-input";
-
+import {media} from 'sanity-plugin-media';
+import {linkField} from 'sanity-plugin-link-field';
 import "./lib/sanity/custom.css";
+import { pages } from "@tinloof/sanity-studio";
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ["post"];
 
@@ -37,10 +39,15 @@ export default defineConfig({
     visionTool(),
     unsplashImageAsset(),
     table(),
-    codeInput()
+    codeInput(),
+	media(),
+	linkField({
+      linkableSchemaTypes: ['post','author','category'],
+    }),
   ],
 
   schema: {
     types: schemaTypes
   }
 });
+
