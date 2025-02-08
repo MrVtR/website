@@ -126,18 +126,19 @@ export default function Post(props) {
               style={{
                 columnGap: "3rem"
               }}>
-              {post.tags.map(tag => (
-                <div key={tag}>
-                  <img
-                    src={`/profile/${tag}.png`}
-                    alt={`Profile ${tag}`}
-                    style={{
-                      display: "block",
-                      marginTop: "-20px"
-                    }}
-                  />
-                </div>
-              ))}
+              {post.tags &&
+                post.tags.map(tag => (
+                  <div key={tag}>
+                    <img
+                      src={`/profile/${tag}.png`}
+                      alt={`Profile ${tag}`}
+                      style={{
+                        display: "block",
+                        marginTop: "-20px"
+                      }}
+                    />
+                  </div>
+                ))}
             </div>
             {post.body2 && <PortableText value={post.body2} />}
             <img src="/static/baixar.png" alt="DownloadLabel" />
