@@ -76,7 +76,7 @@ export default function NavbarAlt(props) {
   ];
 
   return (
-    <Container className="!py-0">
+    <Container className="flex flex-col items-center justify-center !py-0">
       <nav className="my-4">
         <Disclosure>
           {({ open }) => (
@@ -89,7 +89,9 @@ export default function NavbarAlt(props) {
                         src={urlForImage(props.logo)}
                         alt="Logo"
                         priority={true}
-                        sizes="(max-width: 640px) 100vw, 200px"
+                        width={90}
+                        height={90}
+                        style={{ borderRadius: "50%" }}
                       />
                     ) : (
                       <span className="block text-center">
@@ -103,7 +105,9 @@ export default function NavbarAlt(props) {
                         src={urlForImage(props.logoalt)}
                         alt="Logo"
                         priority={true}
-                        sizes="(max-width: 640px) 100vw, 200px"
+                        width={90}
+                        height={90}
+                        style={{ borderRadius: "50%" }}
                       />
                     ) : (
                       <span className="block text-center">
@@ -133,11 +137,19 @@ export default function NavbarAlt(props) {
                       )}
                     </svg>
                   </Disclosure.Button>
+                  <div
+                    className="lg:hidden"
+                    style={{ paddingLeft: "20px" }}>
+                    {/* Right menu links go here */}
+                    <ThemeSwitch />
+                  </div>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <div className="hidden w-full flex-col items-center lg:flex lg:w-auto lg:flex-row ">
                     {menu.map((item, index) => (
                       <>
+                        {console.log(index + item.label)}
                         {item.children && item.children.length > 0 ? (
                           <DropdownMenu
                             menu={item}
@@ -155,15 +167,23 @@ export default function NavbarAlt(props) {
                             {item.label}
                           </Link>
                         )}
+                        {index < menu.length - 1 && (
+                          <span className="mx-2 text-gray-600">
+                            |
+                          </span>
+                        )}{" "}
+                        {/* Adds the vertical slash */}
                       </>
                     ))}
                   </div>
                   <div className="hidden lg:block">
                     <form action="/search" method="GET">
-                      <SearchInput placeholder="Search Blog" />
+                      <SearchInput placeholder="Procurar..." />
                     </form>
                   </div>
-                  <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:gap-4">
+                  <div
+                    className="hidden lg:block"
+                    style={{ paddingLeft: "20px" }}>
                     {/* Right menu links go here */}
                     <ThemeSwitch />
                   </div>
@@ -194,12 +214,8 @@ export default function NavbarAlt(props) {
                   ))}
                   <div className="mt-2 px-5">
                     <form action="/search" method="GET">
-                      <SearchInput placeholder="Search Blog" />
+                      <SearchInput placeholder="Procurar..." />
                     </form>
-                  </div>
-                  <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:gap-4">
-                    {/* Right menu links go here */}
-                    <ThemeSwitch />
                   </div>
                 </div>
               </Disclosure.Panel>
@@ -207,6 +223,10 @@ export default function NavbarAlt(props) {
           )}
         </Disclosure>
       </nav>
+      <img
+        src="/static/moldura.png"
+        style={{ maxHeight: "190px", marginTop: "10px" }}
+      />
     </Container>
   );
 }

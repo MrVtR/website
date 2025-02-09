@@ -74,11 +74,17 @@ export default async function Layout({
       lang="en"
       suppressHydrationWarning
       className={cx(inter.variable, lora.variable)}>
-      <body className="text-gray-800 antialiased dark:bg-black dark:text-gray-400">
+      <body
+        className="text-gray-800 antialiased dark:bg-black dark:text-gray-400"
+        style={{ backgroundColor: "#e4e4e4" }}>
         <Providers>
-          <GetNavbar {...settings} />
-          <div>{children}</div>
-          <Footer {...settings} />
+          <div
+            className="container mx-auto"
+            style={{ backgroundColor: "white" }}>
+            <GetNavbar {...settings} />
+            <div>{children}</div>
+            <Footer {...settings} />
+          </div>
         </Providers>
       </body>
     </html>

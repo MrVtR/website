@@ -8,7 +8,5 @@ export default function GetNavbar(props) {
   const pathname = usePathname();
   const altnav = pathname === "/";
 
-  return (
-    <>{altnav ? <NavbarAlt {...props} /> : <Navbar {...props} />}</>
-  );
+  return <NavbarAlt {...props} />;
 }
