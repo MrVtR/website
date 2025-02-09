@@ -10,6 +10,7 @@ import cx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { myLoader } from "@/utils/all";
 import SearchInput from "./ui/search";
+import ThemeSwitch from "@/components/themeSwitch";
 
 export default function NavbarAlt(props) {
   const menu = [
@@ -162,6 +163,10 @@ export default function NavbarAlt(props) {
                       <SearchInput placeholder="Search Blog" />
                     </form>
                   </div>
+                  <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:gap-4">
+                    {/* Right menu links go here */}
+                    <ThemeSwitch />
+                  </div>
                 </div>
               </div>
               <Disclosure.Panel>
@@ -191,6 +196,10 @@ export default function NavbarAlt(props) {
                     <form action="/search" method="GET">
                       <SearchInput placeholder="Search Blog" />
                     </form>
+                  </div>
+                  <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:gap-4">
+                    {/* Right menu links go here */}
+                    <ThemeSwitch />
                   </div>
                 </div>
               </Disclosure.Panel>

@@ -6,7 +6,7 @@ import NavbarAlt from "@/components/navbaralt";
 
 export default function GetNavbar(props) {
   const pathname = usePathname();
-  const altnav = pathname === "/home/minimal";
+  const altnav = pathname === "/";
 
   return (
     <>{altnav ? <NavbarAlt {...props} /> : <Navbar {...props} />}</>
