@@ -35,7 +35,7 @@ export const fetcher = async ([query, params]) => {
 
 export async function getAllPosts() {
   if (client) {
-    return (await client.fetch(postquery)) || [];
+    return client.fetch(postquery, {}, { cache: "no-store" }) || [];
   }
   return [];
 }

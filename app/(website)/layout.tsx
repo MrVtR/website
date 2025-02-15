@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import GetNavbar from "@/components/getnavbar";
 import { urlForImage } from "@/lib/sanity/image";
-
+import Sidebar from "@/components/sidebar2";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter"
@@ -74,15 +74,34 @@ export default async function Layout({
       lang="en"
       suppressHydrationWarning
       className={cx(inter.variable, lora.variable)}>
-      <body
-        className="text-gray-800 antialiased dark:bg-black dark:text-gray-400"
-        style={{ backgroundColor: "#e4e4e4" }}>
+      <body className="dark:bg-black-800 flex flex-row bg-gray-100 text-gray-800">
         <Providers>
-          <div
-            className="container mx-auto"
-            style={{ backgroundColor: "white" }}>
+          <div className="container mx-auto flex flex-grow flex-col items-center justify-center">
             <GetNavbar {...settings} />
-            <div>{children}</div>
+
+            <a href="/" style={{ display: "block", width: "90%" }}>
+              <img
+                src="/static/moldura.png"
+                style={{ marginTop: "10px", width: "100%" }}
+              />
+            </a>
+
+            <div className="flex flex-row items-center justify-center">
+              <div className="flex h-full flex-col items-center justify-start">
+                <a href="/doacao" style={{ display: "block" }}>
+                  <img
+                    src="/static/padrinho.gif"
+                    style={{
+                      marginTop: "32px",
+                      width: "100%"
+                    }}
+                  />
+                </a>
+                {children}
+              </div>
+              <Sidebar />
+            </div>
+
             <Footer {...settings} />
           </div>
         </Providers>

@@ -7,3 +7,8 @@
 /*! purgecss end ignore */
 
 /*Custom Styles Here*/
+
+/* globals.css */
+body {
+  @apply bg-gray-300 text-gray-900 transition-colors duration-300 dark:bg-black dark:text-white;
+}

@@ -5,6 +5,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import { parseISO, format } from "date-fns";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import CategoryLabel from "@/components/blog/category";
+import { ptBR } from "date-fns/locale";
 
 export default function PostAlt({
   post,
@@ -22,12 +23,12 @@ export default function PostAlt({
     <>
       <div
         className={cx(
-          "grid gap-3 content-start cursor-pointer group",
+          "group grid cursor-pointer content-start gap-3",
           featured && " lg:grid-cols-2 lg:gap-10"
         )}>
         <div
           className={cx(
-            "relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800",
+            "relative overflow-hidden rounded-md bg-gray-100 transition-all dark:bg-gray-800",
             aspect === "landscape" ? "aspect-video" : "aspect-square"
           )}>
           <Link href={`/post/minimal/${post.slug.current}`}>
@@ -45,7 +46,7 @@ export default function PostAlt({
                 sizes="80vw"
               />
             ) : (
-              <span className="absolute w-16 h-16 text-gray-200 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+              <span className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 text-gray-200">
                 <PhotoIcon />
               </span>
             )}
@@ -62,29 +63,31 @@ export default function PostAlt({
               "flex items-center space-x-3 text-gray-500 dark:text-gray-400"
             )}>
             <time
-              className="text-sm"
+              className="text-gray-500 dark:text-gray-400"
+              style={{ fontSize: "12px" }}
               dateTime={post?.publishedAt || post._createdAt}>
               {format(
                 parseISO(post?.publishedAt || post._createdAt),
-                "MMMM dd, yyyy"
+                "dd 'de' MMMM 'de' yyyy",
+                { locale: ptBR }
               )}
             </time>
           </div>
 
           <h2
             className={cx(
-              "mt-2 text-xl font-semibold tracking-normal line-clamp-2 text-brand-primary dark:text-white",
+              "text-brand-primary mt-2 line-clamp-2 text-xl font-semibold tracking-normal dark:text-white",
               featured ? "lg:text-3xl" : "lg:text-2xl"
             )}>
             <Link href={`/post/minimal/${post.slug.current}`}>
               <span
-                className="bg-gradient-to-r from-black to-black dark:from-white dark:to-white
-        bg-[length:0px_2px]
-        bg-left-bottom
+                className="bg-gradient-to-r from-black to-black bg-[length:0px_2px] bg-left-bottom
         bg-no-repeat
         transition-[background-size]
         duration-500
-        hover:bg-[length:100%_2px] group-hover:bg-[length:100%_2px]">
+        hover:bg-[length:100%_2px]
+        group-hover:bg-[length:100%_2px]
+        dark:from-white dark:to-white">
                 {post.title}
               </span>
             </Link>

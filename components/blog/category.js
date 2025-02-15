@@ -6,13 +6,13 @@ export default function CategoryLabel({
   nomargin = false
 }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex flex-wrap gap-x-3 gap-y-1">
       {categories?.length &&
         categories.slice(0).map((category, index) => (
           <Link
             href={`/category/${category.slug.current}`}
             key={index}>
-            <Label nomargin={nomargin} color={category.color}>
+            <Label nomargin="true" color={category.color}>
               {category.title}
             </Label>
           </Link>

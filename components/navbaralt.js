@@ -15,83 +15,56 @@ import ThemeSwitch from "@/components/themeSwitch";
 export default function NavbarAlt(props) {
   const menu = [
     {
-      label: "Home",
-      href: "#",
-      children: [
-        { title: "Home Default", path: "/" },
-        { title: "Home Alternate", path: "/home/alt" },
-        { title: "Home Minimal", path: "/home/minimal" },
-        { title: "Home Lifestyle", path: "/home/lifestyle" },
-        { title: "Home Two Column", path: "/home/2-col" }
-      ]
+      label: "Copyright",
+      href: "/copyright"
     },
     {
-      label: "About",
-      href: "/about"
+      label: "Traduções Concluídas",
+      href: "/category/finalizada"
     },
     {
-      label: "Contact",
-      href: "/contact"
+      label: "Traduções em Andamento",
+      href: "/category/em-andamento"
     },
     {
-      label: "Pages",
-      href: "#",
-      children: [
-        {
-          title: "Category Page",
-          path: "/category/personal-growth"
-        },
-        {
-          title: "Author Page",
-          path: "/author/mario-sanchez"
-        },
-        {
-          title: "Search Page",
-          path: "/search?q=life"
-        },
-        { title: "Archive - Pagination", path: "/archive" },
-        {
-          title: "Single Post - Default",
-          path: "/post/10-simple-practices-that-will-help-you-get-1-better-every-day"
-        },
-        {
-          title: "Single Post - Minimal",
-          path: "/post/minimal/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration"
-        },
-        {
-          title: "Single Post - Lifestyle",
-          path: "/post/lifestyle/there-s-nothing-new-about-undermining-women-s-autonomy"
-        },
-        {
-          title: "Single Post - Sidebar",
-          path: "/post/sidebar/lessons-of-happiness-i-learned-from-a-mountain-village"
-        }
-      ]
+      label: "Nossa Equipe",
+      href: "/nossa-equipe"
     },
     {
-      label: "Purchase",
-      href: "https://web3templates.com/templates/stablo-minimal-blog-website-template",
-      external: true
+      label: "Contato",
+      href: "/contato"
+    },
+    {
+      label: "Ajuda/Doação",
+      href: "/doacao"
     }
   ];
 
   return (
     <Container className="flex flex-col items-center justify-center !py-0">
-      <nav className="my-4">
+      <nav
+        className="my-4"
+        style={{
+          width: "100vw"
+        }}>
         <Disclosure>
           {({ open }) => (
             <>
-              <div className="flex flex-wrap justify-between md:gap-10 lg:flex-nowrap">
-                <div className="flex w-full items-center justify-between lg:w-auto">
-                  <Link href="/" className="w-28 dark:hidden">
+              <div className="flex flex-wrap justify-center lg:flex-nowrap">
+                <div className="flex w-full items-center justify-center px-[30px] lg:hidden lg:w-auto">
+                  <Link href="/" className="lg:hidden">
                     {props.logo ? (
                       <Image
                         src={urlForImage(props.logo)}
                         alt="Logo"
                         priority={true}
-                        width={90}
-                        height={90}
-                        style={{ borderRadius: "50%" }}
+                        width={50}
+                        height={50}
+                        style={{
+                          borderRadius: "50%",
+                          marginRight: "20px",
+                          minWidth: "50px"
+                        }}
                       />
                     ) : (
                       <span className="block text-center">
@@ -99,25 +72,14 @@ export default function NavbarAlt(props) {
                       </span>
                     )}
                   </Link>
-                  <Link href="/" className="hidden w-28 dark:block">
-                    {props.logoalt ? (
-                      <Image
-                        src={urlForImage(props.logoalt)}
-                        alt="Logo"
-                        priority={true}
-                        width={90}
-                        height={90}
-                        style={{ borderRadius: "50%" }}
-                      />
-                    ) : (
-                      <span className="block text-center">
-                        Stablo
-                      </span>
-                    )}
-                  </Link>
+                  <div className="ml-auto block lg:hidden">
+                    <form action="/search" method="GET">
+                      <SearchInput placeholder="Procurar..." />
+                    </form>
+                  </div>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
-                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
+                    className="rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
                     <svg
                       className="h-6 w-6 fill-current"
                       xmlns="http://www.w3.org/2000/svg"
@@ -145,8 +107,30 @@ export default function NavbarAlt(props) {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="hidden w-full flex-col items-center lg:flex lg:w-auto lg:flex-row ">
+                <div className="flex items-center">
+                  <div
+                    className="hidden flex-col items-center lg:flex lg:flex-row "
+                    style={{ paddingRight: "20px" }}>
+                    <Link href="/">
+                      {props.logo ? (
+                        <Image
+                          src={urlForImage(props.logo)}
+                          alt="Logo"
+                          priority={true}
+                          width={60}
+                          height={60}
+                          style={{
+                            borderRadius: "50%",
+                            marginRight: "20px",
+                            minWidth: "60px"
+                          }}
+                        />
+                      ) : (
+                        <span className="block text-center">
+                          Stablo
+                        </span>
+                      )}
+                    </Link>
                     {menu.map((item, index) => (
                       <>
                         {console.log(index + item.label)}
@@ -161,7 +145,7 @@ export default function NavbarAlt(props) {
                           <Link
                             href={item.href}
                             key={index + item.label}
-                            className="rounded-full px-5 py-2 font-medium text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400"
+                            className="rounded-full text-center font-bold text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400 min-[1024px]:text-[12px] min-[1100px]:text-[14px] xl:text-[18px]"
                             target={item.external ? "_blank" : ""}
                             rel={item.external ? "noopener" : ""}>
                             {item.label}
@@ -190,7 +174,7 @@ export default function NavbarAlt(props) {
                 </div>
               </div>
               <Disclosure.Panel>
-                <div className="order-2 -ml-5 mt-5 flex w-full flex-col items-start justify-start lg:hidden">
+                <div className="order-2 -ml-5 mt-5 flex w-full flex-col items-start justify-start px-[30px] lg:hidden">
                   {menu.map((item, index) => (
                     <>
                       {item.children && item.children.length > 0 ? (
@@ -212,21 +196,12 @@ export default function NavbarAlt(props) {
                       )}
                     </>
                   ))}
-                  <div className="mt-2 px-5">
-                    <form action="/search" method="GET">
-                      <SearchInput placeholder="Procurar..." />
-                    </form>
-                  </div>
                 </div>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
       </nav>
-      <img
-        src="/static/moldura.png"
-        style={{ maxHeight: "190px", marginTop: "10px" }}
-      />
     </Container>
   );
 }

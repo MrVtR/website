@@ -1,15 +1,15 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/container";
-import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
 import { parseISO, format } from "date-fns";
-
+import { ptBR } from "date-fns/locale";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ Correct import
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
-
-const STATIC_IMAGE_URL2 = "/static/baixar.png"; // Path to your static image
 
 const STATIC_IMAGES = [
   {
@@ -36,12 +36,34 @@ const STATIC_IMAGES = [
 
 export default function Post(props) {
   const { loading, post } = props;
-
   const slug = post?.slug;
+  const [views, setViews] = useState(post.viewCount || 0);
+  const router = useRouter(); // ✅ Corrected import
 
-  if (!loading && !slug) {
-    notFound();
-  }
+  const [loadingViews, setLoadingViews] = useState(true); // New loading state for views
+
+  useEffect(() => {
+    const updateViews = async () => {
+      try {
+        const response = await fetch("/api/post/updateViews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId: post._id })
+        });
+
+        if (!response.ok) throw new Error("Failed to update views");
+
+        const data = await response.json();
+        setViews(data.viewCount);
+        setLoadingViews(false); // Mark as loaded once API response is received
+      } catch (error) {
+        console.error("Error updating views:", error);
+        setLoadingViews(false); // Set loading to false even if there's an error
+      }
+    };
+
+    updateViews();
+  }, [router.pathname]); // Use the pathname as a dependency to trigger the update
 
   const imageProps = post?.mainImage
     ? urlForImage(post?.mainImage)
@@ -52,18 +74,24 @@ export default function Post(props) {
     : null;
 
   return (
-    <>
-      <Container className="!pt-0">
+    <div
+      style={{
+        backgroundColor: "rgb(0, 0, 0, 0.1)",
+        borderRadius: "15px",
+        paddingLeft: "20px",
+        paddingRight: "20px"
+      }}
+      className="my-8">
+      <Container>
         <div className="mx-auto max-w-screen-md ">
           <div className="flex justify-center">
             <CategoryLabel categories={post.categories} />
           </div>
-
           <h1 className="text-brand-primary mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
             {post.title}
           </h1>
 
-          <div className="mt-3 flex justify-center space-x-3 text-gray-500 ">
+          <div className="mt-3 flex flex-col items-center justify-center space-x-3 text-gray-500 ">
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 flex-shrink-0">
                 {AuthorimageProps && (
@@ -90,13 +118,19 @@ export default function Post(props) {
                     dateTime={post?.publishedAt || post._createdAt}>
                     {format(
                       parseISO(post?.publishedAt || post._createdAt),
-                      "MMMM dd, yyyy"
+                      "dd 'de' MMMM 'de' yyyy",
+                      { locale: ptBR }
                     )}
                   </time>
                   <span>· {post.estReadingTime || "5"} min read</span>
                 </div>
               </div>
             </div>
+            <p className="self-end text-[14px] lg:text-[16px]">
+              {loadingViews
+                ? ""
+                : `👀 ${views} ${views === 1 ? "visualização" : "visualizações"}`}
+            </p>
           </div>
         </div>
       </Container>
@@ -178,31 +212,16 @@ export default function Post(props) {
               )}
             </div>
           </div>
-          <div className="mb-7 mt-7 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <Link
               href="/"
-              className="bg-brand-secondary/20 rounded-full px-5 py-2 text-sm text-blue-600 dark:text-blue-500 ">
-              ← Ver todas as postagens
+              className="relative inline-flex items-center gap-1 rounded-2xl border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">
+              <span>Voltar para a Página Inicial</span>
             </Link>
           </div>
           {post.author && <AuthorCard author={post.author} />}
         </article>
       </Container>
-    </>
-  );
-}
-
-const MainImage = ({ image }) => {
-  return (
-    <div className="mb-12 mt-12 ">
-      <Image {...urlForImage(image)} alt={image.alt || "Thumbnail"} />
-      <figcaption className="text-center ">
-        {image.caption && (
-          <span className="text-sm italic text-gray-600 dark:text-gray-400">
-            {image.caption}
-          </span>
-        )}
-      </figcaption>
     </div>
   );
-};
+}

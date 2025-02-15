@@ -5,6 +5,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import { parseISO, format } from "date-fns";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import CategoryLabel from "@/components/blog/category";
+import { ptBR } from "date-fns/locale";
 
 export default function PostList({
   post,
@@ -21,6 +22,9 @@ export default function PostList({
   const AuthorimageProps = post?.author?.image
     ? urlForImage(post.author.image)
     : null;
+
+  const view = post?.viewCount ? post.viewCount : 0;
+
   return (
     <>
       <div
@@ -30,7 +34,7 @@ export default function PostList({
           minimal && "grid gap-10 md:grid-cols-2"
         )}
         style={{
-          width: "fit-content"
+          margin: "10px"
         }}>
         <div
           id="TESTE"
@@ -121,9 +125,9 @@ export default function PostList({
               )}
             </div>
 
-            <div className="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
+            <div className=" flex flex-col items-center justify-center gap-2 py-4 text-gray-500 dark:text-gray-400">
               <Link href={`/author/${post.author?.slug?.current}`}>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center gap-3">
                   <div className="relative h-5 w-5 flex-shrink-0">
                     {post.author?.image && (
                       <Image
@@ -136,22 +140,21 @@ export default function PostList({
                       />
                     )}
                   </div>
-                  <span className="truncate text-sm">
+                  <span className="truncate text-[14px] text-sm">
                     {post.author?.name}
                   </span>
                 </div>
               </Link>
-              <span className="text-xs text-gray-300 dark:text-gray-600">
-                &bull;
-              </span>
               <time
-                className="truncate text-sm"
+                className="text-[14px] text-gray-500 dark:text-gray-400"
                 dateTime={post?.publishedAt || post._createdAt}>
                 {format(
                   parseISO(post?.publishedAt || post._createdAt),
-                  "MMMM dd, yyyy"
+                  "dd 'de' MMMM 'de' yyyy",
+                  { locale: ptBR }
                 )}
               </time>
+              <p className="text-[14px]">👀 {view}</p>
             </div>
           </div>
         </div>
