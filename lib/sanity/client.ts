@@ -12,7 +12,8 @@ import {
   postsbycatquery,
   catpathquery,
   catquery,
-  searchquery
+  searchquery,
+  commentsByPostQuery
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -126,6 +127,15 @@ export async function searchPosts(query = "") {
       (await client.fetch(searchquery, {
         query: query
       })) || []
+    );
+  }
+  return [];
+}
+
+export async function getCommentsByPostId(postId) {
+  if (client) {
+    return (
+      (await client.fetch(commentsByPostQuery, { postId })) || []
     );
   }
   return [];

@@ -73,3 +73,7 @@
 .refractor-marker {
   @apply bg-sky-300/10;
 }
+
+body {
+  overflow-x: hidden;
+}

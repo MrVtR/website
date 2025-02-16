@@ -87,7 +87,7 @@ export default async function Layout({
             </a>
 
             <div className="flex flex-row items-center justify-center">
-              <div className="flex h-full flex-col items-center justify-start">
+              <div className="flex h-full max-w-[1030px] flex-col items-center justify-start lg:w-[58vw]">
                 <a href="/doacao" style={{ display: "block" }}>
                   <img
                     src="/static/padrinho.gif"

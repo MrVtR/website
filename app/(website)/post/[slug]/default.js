@@ -10,6 +10,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // ✅ Correct import
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
+import {
+  getPostBySlug,
+  getCommentsByPostId
+} from "@/lib/sanity/client";
+import CommentSection from "@/components/CommentSection";
 
 const STATIC_IMAGES = [
   {
@@ -35,12 +40,29 @@ const STATIC_IMAGES = [
 ];
 
 export default function Post(props) {
-  const { loading, post } = props;
+  const { post } = props;
   const slug = post?.slug;
   const [views, setViews] = useState(post.viewCount || 0);
   const router = useRouter(); // ✅ Corrected import
-
   const [loadingViews, setLoadingViews] = useState(true); // New loading state for views
+
+  const [loading, setLoading] = useState(true);
+
+  const [comments, setComments] = useState([]);
+  // ✅ Fetch comments dynamically on component mount
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const fetchedComments = await getCommentsByPostId(post._id);
+        console.log(fetchedComments);
+        setComments(fetchedComments);
+      } catch (error) {
+        console.error("Failed to fetch comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, [post._id]); // ✅ Depend on post ID to trigger fetch
 
   useEffect(() => {
     const updateViews = async () => {
@@ -222,6 +244,20 @@ export default function Post(props) {
           {post.author && <AuthorCard author={post.author} />}
         </article>
       </Container>
+      <CommentSection postId={post._id} comments={comments} />
+      {/* <div>
+      <h2>Comments:</h2>
+      {comments.length === 0 ? (
+        <p>No comments yet.</p>
+      ) : (
+        comments.map((comment) => (
+          <div key={comment._id}>
+            <p>{comment.text}</p>
+            <p><em>By {comment.author}</em></p>
+          </div>
+        ))
+      )}
+    </div> */}
     </div>
   );
 }

@@ -12,11 +12,9 @@ export default async function SearchPage({ searchParams }) {
       <div>
         <div className="mt-14 flex items-center justify-center ">
           <h1 className="text-brand-primary text-xl font-semibold tracking-tight dark:text-white lg:text-3xl lg:leading-tight">
-            {query ? `Search results for "${query}"` : "Search"}
+            {query ? `Resultados de busca para "${query}"` : "Busca"}
           </h1>
         </div>
-
-        <Input query={query} />
       </div>
 
       <Container>

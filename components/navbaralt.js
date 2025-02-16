@@ -133,7 +133,6 @@ export default function NavbarAlt(props) {
                     </Link>
                     {menu.map((item, index) => (
                       <>
-                        {console.log(index + item.label)}
                         {item.children && item.children.length > 0 ? (
                           <DropdownMenu
                             menu={item}

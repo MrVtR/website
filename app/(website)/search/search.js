@@ -1,6 +1,7 @@
 import PostList from "@/components/postlist";
 
 import { searchPosts } from "@/lib/sanity/client";
+import Container from "@/components/container";
 
 export default async function Search({ searchParams }) {
   const query = searchParams.q;
@@ -23,7 +24,7 @@ export default async function Search({ searchParams }) {
       {query && posts?.length === 0 && (
         <div className="flex h-40 items-center justify-center">
           <span className="text-lg text-gray-500">
-            No posts found for {query}. Try again!
+            Nenhuma postagem encontrada para {query}. Tente novamente!
           </span>
         </div>
       )}
@@ -48,12 +49,36 @@ export default async function Search({ searchParams }) {
           </svg>{" "}
         </div>
       )}
-      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-        {posts &&
-          posts.map((post, index) => (
-            <PostList key={post._id} post={post} aspect="square" />
-          ))}
-      </div>
+      {posts && posts?.length > 0 && (
+        <div
+          style={{
+            backgroundColor: "rgb(0, 0, 0, 0.1)",
+            marginTop: "32px",
+            borderRadius: "15px"
+          }}>
+          <Container>
+            <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">
+              {posts.slice(0, 2).map(post => (
+                <PostList
+                  key={post._id}
+                  post={post}
+                  aspect="landscape"
+                  preloadImage={true}
+                />
+              ))}
+            </div>
+            <div className="mt-3 grid gap-[50px] md:grid-cols-2 lg:gap-[10px] xl:grid-cols-3 ">
+              {posts.slice(2, 14).map(post => (
+                <PostList
+                  key={post._id}
+                  post={post}
+                  aspect="landscape"
+                />
+              ))}
+            </div>
+          </Container>
+        </div>
+      )}
     </>
   );
 }
