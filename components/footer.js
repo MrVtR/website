@@ -9,10 +9,10 @@ export default function Footer(props) {
     <Container className="mt-10 border-t border-gray-100 dark:border-gray-800">
       <div className="text-center text-sm">
         Copyright © {new Date().getFullYear()} {props?.copyright}.
-        All rights reserved.
+        Todos os direitos reservados.
       </div>
       <div className="mt-1 text-center text-sm text-gray-500 dark:text-gray-600">
-        Made by{" "}
+        Criado por{" "}
         <a
           href="https://www.web3templates.com/?ref=stablo-template"
           rel="noopener"

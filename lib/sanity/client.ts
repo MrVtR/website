@@ -13,7 +13,9 @@ import {
   catpathquery,
   catquery,
   searchquery,
-  commentsByPostQuery
+  postsByYearQuery,
+  commentsByPostQuery,
+  AllYearsPosts,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -58,7 +60,7 @@ export async function getPostBySlug(slug) {
 export async function getAllPostsSlugs() {
   if (client) {
     const slugs = (await client.fetch(pathquery)) || [];
-    return slugs.map(slug => ({ slug }));
+    return slugs.map((slug) => ({ slug }));
   }
   return [];
 }
@@ -66,7 +68,7 @@ export async function getAllPostsSlugs() {
 export async function getAllAuthorsSlugs() {
   if (client) {
     const slugs = (await client.fetch(authorsquery)) || [];
-    return slugs.map(slug => ({ author: slug }));
+    return slugs.map((slug) => ({ author: slug }));
   }
   return [];
 }
@@ -90,7 +92,7 @@ export async function getAllAuthors() {
 export async function getAllCategories() {
   if (client) {
     const slugs = (await client.fetch(catpathquery)) || [];
-    return slugs.map(slug => ({ category: slug }));
+    return slugs.map((slug) => ({ category: slug }));
   }
   return [];
 }
@@ -114,7 +116,7 @@ export async function getPaginatedPosts({ limit, pageIndex = 0 }) {
     return (
       (await client.fetch(paginatedquery, {
         pageIndex: pageIndex,
-        limit: limit
+        limit: limit,
       })) || []
     );
   }
@@ -125,7 +127,7 @@ export async function searchPosts(query = "") {
   if (client) {
     return (
       (await client.fetch(searchquery, {
-        query: query
+        query: query,
       })) || []
     );
   }
@@ -134,9 +136,21 @@ export async function searchPosts(query = "") {
 
 export async function getCommentsByPostId(postId) {
   if (client) {
-    return (
-      (await client.fetch(commentsByPostQuery, { postId })) || []
-    );
+    return (await client.fetch(commentsByPostQuery, { postId })) || [];
   }
   return [];
+}
+
+export async function getPostsByYear(year) {
+  if (client) {
+    return (await client.fetch(postsByYearQuery, { year })) || {};
+  }
+  return {};
+}
+
+export async function getAllYears() {
+  if (client) {
+    return (await client.fetch(AllYearsPosts)) || {};
+  }
+  return {};
 }

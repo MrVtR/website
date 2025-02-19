@@ -9,9 +9,10 @@ const client = createClient({
   token: process.env.SANITY_API_TOKEN, // Add this to your .env file
   apiVersion: "2023-01-01" // Add this line with the latest API version
 });
+
 export async function POST(req) {
   try {
-    const { postId, author, text } = await req.json();
+    const { postId, author, text, parent } = await req.json();
 
     if (!author.trim() || !text.trim()) {
       return NextResponse.json(
@@ -20,15 +21,21 @@ export async function POST(req) {
       );
     }
 
-    const comment = await client.create({
+    const commentData = {
       _type: "comment",
       post: { _type: "reference", _ref: postId },
       author,
       text,
-      createdAt: new Date().toISOString()
-    });
+      createdAt: new Date().toISOString(),
+    };
 
-    // ✅ Force revalidation of comments
+    console.log("TESTE"+parent)
+    if (parent) {
+      commentData.parent = { _type: "reference", _ref: parent }; // ✅ Store reply reference
+    }
+
+    const comment = await client.create(commentData);
+
     revalidatePath(`/post/${postId}`);
 
     return NextResponse.json(comment, { status: 201 });
@@ -39,3 +46,4 @@ export async function POST(req) {
     );
   }
 }
+

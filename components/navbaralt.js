@@ -16,28 +16,28 @@ export default function NavbarAlt(props) {
   const menu = [
     {
       label: "Copyright",
-      href: "/copyright"
+      href: "/copyright",
     },
     {
       label: "Traduções Concluídas",
-      href: "/category/finalizada"
+      href: "/category/finalizada",
     },
     {
       label: "Traduções em Andamento",
-      href: "/category/em-andamento"
+      href: "/category/em-andamento",
     },
     {
       label: "Nossa Equipe",
-      href: "/nossa-equipe"
+      href: "/equipe",
     },
     {
       label: "Contato",
-      href: "/contato"
+      href: "/contato",
     },
     {
       label: "Ajuda/Doação",
-      href: "/doacao"
-    }
+      href: "/doacao",
+    },
   ];
 
   return (
@@ -45,8 +45,9 @@ export default function NavbarAlt(props) {
       <nav
         className="my-4"
         style={{
-          width: "100vw"
-        }}>
+          width: "100vw",
+        }}
+      >
         <Disclosure>
           {({ open }) => (
             <>
@@ -63,13 +64,11 @@ export default function NavbarAlt(props) {
                         style={{
                           borderRadius: "50%",
                           marginRight: "20px",
-                          minWidth: "50px"
+                          minWidth: "50px",
                         }}
                       />
                     ) : (
-                      <span className="block text-center">
-                        Stablo
-                      </span>
+                      <span className="block text-center">Stablo</span>
                     )}
                   </Link>
                   <div className="ml-auto block lg:hidden">
@@ -79,11 +78,13 @@ export default function NavbarAlt(props) {
                   </div>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
-                    className="rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
+                    className="rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden "
+                  >
                     <svg
                       className="h-6 w-6 fill-current"
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       {open && (
                         <path
                           fillRule="evenodd"
@@ -99,9 +100,7 @@ export default function NavbarAlt(props) {
                       )}
                     </svg>
                   </Disclosure.Button>
-                  <div
-                    className="lg:hidden"
-                    style={{ paddingLeft: "20px" }}>
+                  <div className="lg:hidden" style={{ paddingLeft: "20px" }}>
                     {/* Right menu links go here */}
                     <ThemeSwitch />
                   </div>
@@ -110,7 +109,8 @@ export default function NavbarAlt(props) {
                 <div className="flex items-center">
                   <div
                     className="hidden flex-col items-center lg:flex lg:flex-row "
-                    style={{ paddingRight: "20px" }}>
+                    style={{ paddingRight: "20px" }}
+                  >
                     <Link href="/">
                       {props.logo ? (
                         <Image
@@ -122,13 +122,11 @@ export default function NavbarAlt(props) {
                           style={{
                             borderRadius: "50%",
                             marginRight: "20px",
-                            minWidth: "60px"
+                            minWidth: "60px",
                           }}
                         />
                       ) : (
-                        <span className="block text-center">
-                          Stablo
-                        </span>
+                        <span className="block text-center">Stablo</span>
                       )}
                     </Link>
                     {menu.map((item, index) => (
@@ -146,14 +144,13 @@ export default function NavbarAlt(props) {
                             key={index + item.label}
                             className="rounded-full text-center font-bold text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400 min-[1024px]:text-[12px] min-[1100px]:text-[14px] xl:text-[18px]"
                             target={item.external ? "_blank" : ""}
-                            rel={item.external ? "noopener" : ""}>
+                            rel={item.external ? "noopener" : ""}
+                          >
                             {item.label}
                           </Link>
                         )}
                         {index < menu.length - 1 && (
-                          <span className="mx-2 text-gray-600">
-                            |
-                          </span>
+                          <span className="mx-2 text-gray-600">|</span>
                         )}{" "}
                         {/* Adds the vertical slash */}
                       </>
@@ -166,7 +163,8 @@ export default function NavbarAlt(props) {
                   </div>
                   <div
                     className="hidden lg:block"
-                    style={{ paddingLeft: "20px" }}>
+                    style={{ paddingLeft: "20px" }}
+                  >
                     {/* Right menu links go here */}
                     <ThemeSwitch />
                   </div>
@@ -189,7 +187,8 @@ export default function NavbarAlt(props) {
                           key={index + item.label}
                           className="rounded-full px-5 py-2 text-sm font-medium text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400"
                           target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}>
+                          rel={item.external ? "noopener" : ""}
+                        >
                           {item.label}
                         </Link>
                       )}
@@ -216,10 +215,9 @@ const DropdownMenu = ({ menu, items, mobile }) => {
               open
                 ? "text-blue-500 hover:text-blue-500"
                 : " text-gray-600 dark:text-gray-400 ",
-              mobile
-                ? "w-full px-4 py-2 text-sm"
-                : "inline-block px-4 py-2"
-            )}>
+              mobile ? "w-full px-4 py-2 text-sm" : "inline-block px-4 py-2"
+            )}
+          >
             <span>{menu.label}</span>
             <ChevronDownIcon className="mt-0.5 h-4 w-4" />
           </Menu.Button>
@@ -230,12 +228,14 @@ const DropdownMenu = ({ menu, items, mobile }) => {
             enterTo="lg:transform lg:opacity-100 lg:scale-100"
             leave="lg:transition lg:ease-in lg:duration-75"
             leaveFrom="lg:transform lg:opacity-100 lg:scale-100"
-            leaveTo="lg:transform lg:opacity-0 lg:scale-95">
+            leaveTo="lg:transform lg:opacity-0 lg:scale-95"
+          >
             <Menu.Items
               className={cx(
                 "z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
                 !mobile && "bg-white shadow-lg  dark:bg-gray-800"
-              )}>
+              )}
+            >
               <div className={cx(!mobile && "py-3")}>
                 {items.map((item, index) => (
                   <Menu.Item as="div" key={index}>
@@ -247,7 +247,8 @@ const DropdownMenu = ({ menu, items, mobile }) => {
                           active
                             ? "text-blue-500"
                             : "text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300"
-                        )}>
+                        )}
+                      >
                         <span> {item.title}</span>
                       </Link>
                     )}

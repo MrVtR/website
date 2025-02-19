@@ -6,7 +6,7 @@ import { parseISO, format } from "date-fns";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import CategoryLabel from "@/components/blog/category";
 import { ptBR } from "date-fns/locale";
-
+import LikeButton from "@/components/LikeButton";
 export default function PostList({
   post,
   aspect,
@@ -14,36 +14,45 @@ export default function PostList({
   pathPrefix,
   preloadImage,
   fontSize,
-  fontWeight
+  fontWeight,
 }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post.mainImage)
-    : null;
+  const imageProps = post?.mainImage ? urlForImage(post.mainImage) : null;
   const AuthorimageProps = post?.author?.image
     ? urlForImage(post.author.image)
     : null;
 
   const view = post?.viewCount ? post.viewCount : 0;
+  const comments = post?.commentCount ? post.commentCount : 0;
+  const likes = post?.likes ? post.likes : 0;
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between" /* Distributes content evenly */,
+        flex: "1" /* Ensures equal width distribution */,
+      }}
+    >
       <div
-        id="TESTE2"
         className={cx(
           "group cursor-pointer",
           minimal && "grid gap-10 md:grid-cols-2"
         )}
         style={{
-          margin: "10px"
-        }}>
+          margin: "10px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <div
-          id="TESTE"
           className={cx(
             " overflow-hidden rounded-md  transition-all hover:scale-105   dark:bg-gray-800"
           )}
           style={{
-            display: "inline-block"
-          }}>
+            display: "inline-block",
+          }}
+        >
           <Link
             className={cx(
               "relative block",
@@ -57,8 +66,9 @@ export default function PostList({
               post.slug?.current
             }`}
             style={{
-              width: "100%"
-            }}>
+              width: "100%",
+            }}
+          >
             {imageProps ? (
               <img
                 src={imageProps.src}
@@ -66,7 +76,7 @@ export default function PostList({
                 className="object-cover transition-all"
                 style={{
                   maxHeight: "400px",
-                  width: "auto"
+                  width: "auto",
                 }} // Prevents unwanted gaps
               />
             ) : (
@@ -79,34 +89,20 @@ export default function PostList({
 
         <div className={cx(minimal && "flex items-center")}>
           <div>
-            <CategoryLabel
-              categories={post.categories}
-              nomargin={minimal}
-            />
-            <h2
-              className={cx(
-                fontSize === "large"
-                  ? "text-2xl"
-                  : minimal
-                    ? "text-3xl"
-                    : "text-lg",
-                fontWeight === "normal"
-                  ? "line-clamp-2 font-medium  tracking-normal text-black"
-                  : "font-semibold leading-snug tracking-tight",
-                "mt-2    dark:text-white"
-              )}>
+            <CategoryLabel categories={post.categories} nomargin={minimal} />
+            <h2 className="mt-2 text-center text-xl font-semibold leading-snug tracking-tight dark:text-white">
               <Link
                 href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${
                   post.slug?.current
-                }`}>
+                }`}
+              >
                 <span
                   className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom
       bg-no-repeat
       transition-[background-size]
       duration-500
-      hover:bg-[length:100%_3px]
-      group-hover:bg-[length:100%_10px]
-      dark:from-purple-800 dark:to-purple-900">
+      hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"
+                >
                   {post.title}
                 </span>
               </Link>
@@ -118,7 +114,8 @@ export default function PostList({
                   <Link
                     href={`/post/${
                       pathPrefix ? `${pathPrefix}/` : ""
-                    }${post.slug?.current}`}>
+                    }${post.slug?.current}`}
+                  >
                     {post.excerpt}
                   </Link>
                 </p>
@@ -147,18 +144,28 @@ export default function PostList({
               </Link>
               <time
                 className="text-[14px] text-gray-500 dark:text-gray-400"
-                dateTime={post?.publishedAt || post._createdAt}>
+                dateTime={post?.publishedAt || post._createdAt}
+              >
                 {format(
                   parseISO(post?.publishedAt || post._createdAt),
                   "dd 'de' MMMM 'de' yyyy",
                   { locale: ptBR }
                 )}
               </time>
-              <p className="text-[14px]">👀 {view}</p>
             </div>
           </div>
         </div>
       </div>
-    </>
+      <div className="align-center mt-[10px] flex w-full flex-row justify-between">
+        <div className="align-center flex flex-row justify-center gap-2">
+          <img src="/static/eye.png" alt="" className="h-[22px] w-[22px]" />
+          <p className="h-[22px] w-[22px]">{view}</p>
+
+          <img src="/static/comment.png" alt="" className="h-[22px] w-[22px]" />
+          <p className="h-[22px] w-[22px]">{comments}</p>
+        </div>
+        <LikeButton postId={post._id} initialLikes={likes} />
+      </div>
+    </div>
   );
 }

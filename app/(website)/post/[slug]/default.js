@@ -100,8 +100,7 @@ export default function Post(props) {
       style={{
         backgroundColor: "rgb(0, 0, 0, 0.1)",
         borderRadius: "15px",
-        paddingLeft: "20px",
-        paddingRight: "20px"
+        padding:"0 20px 20px 20px"
       }}
       className="my-8">
       <Container>
@@ -245,19 +244,6 @@ export default function Post(props) {
         </article>
       </Container>
       <CommentSection postId={post._id} comments={comments} />
-      {/* <div>
-      <h2>Comments:</h2>
-      {comments.length === 0 ? (
-        <p>No comments yet.</p>
-      ) : (
-        comments.map((comment) => (
-          <div key={comment._id}>
-            <p>{comment.text}</p>
-            <p><em>By {comment.author}</em></p>
-          </div>
-        ))
-      )}
-    </div> */}
     </div>
   );
 }

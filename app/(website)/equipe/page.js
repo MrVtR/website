@@ -1,5 +1,5 @@
 import { getAllAuthors, getSettings } from "@/lib/sanity/client";
-import About from "./about";
+import About from "./equipe";
 
 export default async function AboutPage() {
   const authors = await getAllAuthors();
