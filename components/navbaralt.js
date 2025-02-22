@@ -130,7 +130,7 @@ export default function NavbarAlt(props) {
                       )}
                     </Link>
                     {menu.map((item, index) => (
-                      <>
+                      <Fragment key={index}>
                         {item.children && item.children.length > 0 ? (
                           <DropdownMenu
                             menu={item}
@@ -143,17 +143,19 @@ export default function NavbarAlt(props) {
                             href={item.href}
                             key={index + item.label}
                             className="rounded-full text-center font-bold text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400 min-[1024px]:text-[12px] min-[1100px]:text-[14px] xl:text-[18px]"
-                            target={item.external ? "_blank" : ""}
-                            rel={item.external ? "noopener" : ""}
                           >
                             {item.label}
                           </Link>
                         )}
                         {index < menu.length - 1 && (
-                          <span className="mx-2 text-gray-600">|</span>
-                        )}{" "}
-                        {/* Adds the vertical slash */}
-                      </>
+                          <span
+                            key={`sep-${index}`}
+                            className="mx-2 text-gray-600"
+                          >
+                            |
+                          </span>
+                        )}
+                      </Fragment>
                     ))}
                   </div>
                   <div className="hidden lg:block">
@@ -173,26 +175,24 @@ export default function NavbarAlt(props) {
               <Disclosure.Panel>
                 <div className="order-2 -ml-5 mt-5 flex w-full flex-col items-start justify-start px-[30px] lg:hidden">
                   {menu.map((item, index) => (
-                    <>
+                    <Fragment key={index}>
                       {item.children && item.children.length > 0 ? (
                         <DropdownMenu
                           menu={item}
                           key={index + item.label}
                           items={item.children}
-                          mobile={true}
+                          mobile={props.mobile}
                         />
                       ) : (
                         <Link
                           href={item.href}
                           key={index + item.label}
                           className="rounded-full px-5 py-2 text-sm font-medium text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}
                         >
                           {item.label}
                         </Link>
                       )}
-                    </>
+                    </Fragment>
                   ))}
                 </div>
               </Disclosure.Panel>

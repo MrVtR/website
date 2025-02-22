@@ -24,7 +24,11 @@ export default function Category(props) {
         <Container>
           <div className="flex flex-col items-center justify-center">
             <h1 className="text-brand-primary text-3xl font-semibold tracking-tight dark:text-white lg:text-5xl lg:leading-tight">
-              {title}
+              {title === "Finalizada"
+                ? "Traduções Finalizadas"
+                : title === "Em Andamento"
+                  ? "Traduções em Andamento"
+                  : title}
             </h1>
             <p className="mb-[20px] mt-1 text-gray-600">
               {posts.length} {posts.length === 1 ? "Postagem" : "Postagens"}

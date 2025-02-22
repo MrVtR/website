@@ -60,8 +60,11 @@ export default function Contact({ settings }) {
             Contate a equipe JumpManClub Brasil
           </h2>
           <p className="mt-5 max-w-sm">
-            Have something to say? We are here to help. Fill up the form or send
-            email or call phone.
+            Tem alguma dúvida ou problema ocorrendo com nossas traduções?
+            <br />
+            Quer fazer parte da equipe?
+            <br />
+            Entre em contato via email ou em nosso Discord!
           </p>
 
           <div className="mt-5">

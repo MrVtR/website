@@ -1,12 +1,20 @@
 import "@/styles/tailwind.css";
 import { Providers } from "./providers";
 import { cx } from "@/utils/all";
-import { Inter, Lora } from "next/font/google";
+import { Inter, Lora, Open_Sans } from "next/font/google";
 import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import GetNavbar from "@/components/getnavbar";
 import { urlForImage } from "@/lib/sanity/image";
-import Sidebar from "@/components/sidebar2";
+import SidebarRight from "@/components/sidebar2";
+import SidebarLeft from "@/components/sidebar";
+
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700'], // Choose the weights you need
+  variable: '--font-open-sans', // Optional: Define a CSS variable
+});
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter"
@@ -73,7 +81,7 @@ export default async function Layout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cx(inter.variable, lora.variable)}>
+      className={cx(inter.variable, lora.variable,openSans.variable)}>
       <body className="dark:bg-black-800 flex flex-row bg-gray-100 text-gray-800">
         <Providers>
           <div className="container mx-auto flex flex-grow flex-col items-center justify-center">
@@ -97,9 +105,10 @@ export default async function Layout({
                     }}
                   />
                 </a>
+                
                 {children}
               </div>
-              <Sidebar />
+              <SidebarRight />
             </div>
 
             <Footer {...settings} />

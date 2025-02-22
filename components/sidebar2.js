@@ -1,7 +1,24 @@
+"use client";
+import { useEffect, useState } from "react";
 import SpinningCoin from "@/components/SpinningCoin";
 import AnimatedSocialIcons from "@/components/AnimatedSocialIcons";
 
-export default function Sidebar(props) {
+export default function SidebarRight(props) {
+  const [topPosts, setTopPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchTopPosts = async () => {
+      // Make GET request to the new route to fetch the top 5 most viewed posts
+      const response = await fetch("/api/post/topPosts");
+      if (response.ok) {
+        const posts = await response.json();
+        setTopPosts(posts);
+      }
+    };
+
+    fetchTopPosts();
+  }, []);
+
   const years = [
     { year: 2024, url: "/year/2024" },
     { year: 2023, url: "/year/2023" },
@@ -11,11 +28,12 @@ export default function Sidebar(props) {
     { year: 2019, url: "/year/2019" },
     { year: 2018, url: "/year/2018" },
   ];
+
   const outros = [
     { nome: "Tutoriais de Instalação", url: "/category/tutoriais" },
   ];
 
-  let icons_list_url = [
+  const icons_list_url = [
     {
       name: "facebook",
       url: "https://www.facebook.com/groups/162825860900247",
@@ -41,9 +59,10 @@ export default function Sidebar(props) {
       url: "https://chat.whatsapp.com/CQL9bbyV5ZTAyzalhWZ0S0",
     },
   ];
+
   return (
     <div
-      className="mx-auto flex  hidden flex-col gap-[50px] self-start p-5  dark:text-gray-100 md:hidden  lg:flex"
+      className="mx-auto flex  hidden flex-col gap-8 self-start p-5  dark:text-gray-100 md:hidden  lg:flex"
       style={{
         margin: "40px",
         maxWidth: "340px",
@@ -51,6 +70,7 @@ export default function Sidebar(props) {
         borderRadius: "15px",
       }}
     >
+      {/* Donation Section */}
       <a href="/doacao">
         <div className="flex flex-col items-center justify-center">
           <b>
@@ -78,6 +98,8 @@ export default function Sidebar(props) {
           <SpinningCoin />
         </div>
       </a>
+
+      {/* Social Media Section */}
       <div className="flex flex-col items-center justify-center">
         <b>
           <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] text-white">
@@ -86,23 +108,23 @@ export default function Sidebar(props) {
         </b>
         <AnimatedSocialIcons icons_list_url={icons_list_url} />
       </div>
+
+      {/* Yearly Translations Section */}
       <div className="flex flex-col items-center justify-center">
-        <b>
-          <h1 className="mb-[30px] w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] text-white">
-            Marcadores
-          </h1>
-        </b>
+        <h1 className="mb-[30px] w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] font-bold text-white">
+          Marcadores
+        </h1>
         <div className="flex flex-col gap-3">
           {years.map(({ year, url }) => (
             <a key={year} href={url} className="no-underline">
-              <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] text-white">
+              <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] font-bold text-white hover:bg-red-700">
                 Traduções em {year}
               </h1>
             </a>
           ))}
           {outros.map(({ nome, url }) => (
             <a key={nome} href={url} className="no-underline">
-              <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] text-white">
+              <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] font-bold text-white hover:bg-red-700">
                 {nome}
               </h1>
             </a>
@@ -110,6 +132,7 @@ export default function Sidebar(props) {
         </div>
       </div>
 
+      {/* Discord Widget */}
       <iframe
         src="https://discord.com/widget?id=371132558500560896&theme=dark"
         allowtransparency="true"
@@ -120,6 +143,7 @@ export default function Sidebar(props) {
         }}
       ></iframe>
 
+      {/* Discord Invitation */}
       <a
         href="https://discord.gg/ag6YHvzWVD"
         target="_blank"
@@ -127,6 +151,45 @@ export default function Sidebar(props) {
       >
         <img src="/static/pedido.gif" alt="" />
       </a>
+
+      {/* Top 5 Most Viewed Posts Section */}
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="mb-[30px] w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] font-bold text-white dark:bg-red-700">
+          Conteúdo Popular
+        </h1>
+        <div className="flex flex-col items-center justify-center gap-3">
+          {topPosts.length > 0 ? (
+            topPosts.map((post) => (
+              <a
+                key={post.slug.current}
+                href={`/post/${post.slug.current}`}
+                className="no-underline"
+              >
+                <div
+                  className="flex items-center justify-start gap-4 border-b-2 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
+                  style={{ paddingLeft: "10px" }}
+                >
+                  {/* Main Image */}
+                  <img
+                    src={post.imageUrl} // Use the imageUrl from the API route
+                    alt={post.mainImage?.alt || post.title}
+                    style={{ maxWidth: "90px", height: "auto" }}
+                    className="rounded-md"
+                  />
+                  {/* Post Title */}
+                  <h1 className="text-[16px] font-bold text-black hover:text-red-500 dark:text-white dark:hover:text-red-400">
+                    {post.title}
+                  </h1>
+                </div>
+              </a>
+            ))
+          ) : (
+            <p className="text-gray-500 dark:text-gray-400">
+              Carregando postagens...
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
