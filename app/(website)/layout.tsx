@@ -84,7 +84,8 @@ export default async function Layout({
       className={cx(inter.variable, lora.variable,openSans.variable)}>
       <body className="dark:bg-black-800 flex flex-row bg-gray-100 text-gray-800">
         <Providers>
-          <div className="container mx-auto flex flex-grow flex-col items-center justify-center">
+          <div className="flex flex-grow flex-col items-center justify-center">
+          {/* <div className="container mx-auto flex flex-grow flex-col items-center justify-center"> */}
             <GetNavbar {...settings} />
 
             <a href="/" style={{ display: "block", width: "90%" }}>

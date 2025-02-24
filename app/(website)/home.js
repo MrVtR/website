@@ -13,7 +13,7 @@ export default function Post({ posts }) {
       }}
     >
       {posts && (
-        <Container>
+        <Container className="xxs:px-0">
           <div className="align-stretch flex grid gap-10  md:grid-cols-2 lg:gap-10">
             {posts.slice(0, 2).map((post) => (
               <PostList
@@ -21,12 +21,13 @@ export default function Post({ posts }) {
                 post={post}
                 aspect="landscape"
                 preloadImage={true}
+                maxHeight="310px"
               />
             ))}
           </div>
-          <div className="align-stretch mt-3 flex grid gap-[50px] md:grid-cols-2 lg:gap-[10px] xl:grid-cols-3">
-            {posts.slice(2, 14).map((post) => (
-              <PostList key={post._id} post={post} aspect="landscape" />
+          <div className="align-stretch mt-3 flex grid  md:grid-cols-2 lg:gap-[10px] xl:grid-cols-2">
+            {posts.slice(2, 8).map((post) => (
+              <PostList key={post._id} post={post} aspect="landscape" maxHeight="310px"/>
             ))}
           </div>
 

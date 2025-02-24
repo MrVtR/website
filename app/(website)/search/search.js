@@ -57,25 +57,11 @@ export default async function Search({ searchParams }) {
             borderRadius: "15px"
           }}>
           <Container>
-            <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">
-              {posts.slice(0, 2).map(post => (
-                <PostList
-                  key={post._id}
-                  post={post}
-                  aspect="landscape"
-                  preloadImage={true}
-                />
-              ))}
-            </div>
-            <div className="mt-3 grid gap-[50px] md:grid-cols-2 lg:gap-[10px] xl:grid-cols-3 ">
-              {posts.slice(2, 14).map(post => (
-                <PostList
-                  key={post._id}
-                  post={post}
-                  aspect="landscape"
-                />
-              ))}
-            </div>
+          <div className="align-stretch mt-3 flex grid  md:grid-cols-2 lg:gap-[10px] xl:grid-cols-2">
+            {posts.map((post) => (
+              <PostList key={post._id} post={post} aspect="landscape" maxHeight="310px"/>
+            ))}
+          </div>
           </Container>
         </div>
       )}

@@ -12,6 +12,9 @@ module.exports = {
     extend: {
       colors: {
         gray: colors.neutral,
+      },screens: {
+        xs: '480px',
+        xxs: '250px' // This is just an example, adjust it as needed
       },
       fontFamily: {
         sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],

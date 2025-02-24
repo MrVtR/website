@@ -15,8 +15,10 @@ export default function PostList({
   preloadImage,
   fontSize,
   fontWeight,
+  maxHeight
 }) {
   const imageProps = post?.mainImage ? urlForImage(post.mainImage) : null;
+  const heightControl = maxHeight === "190px" ? true : false
   const AuthorimageProps = post?.author?.image
     ? urlForImage(post.author.image)
     : null;
@@ -55,36 +57,42 @@ export default function PostList({
         >
           <Link
             className={cx(
-              "relative block",
+              "relative block landscape", // Centers content
               aspect === "landscape"
                 ? "aspect-video"
                 : aspect === "custom"
                   ? "aspect-[5/4]"
                   : "aspect-square"
             )}
-            href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${
-              post.slug?.current
-            }`}
-            style={{
-              width: "100%",
-            }}
+            href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug?.current}`}
+
           >
-            {imageProps ? (
-              <img
-                src={imageProps.src}
-                alt={post.mainImage?.alt || "Thumbnail"}
-                className="object-cover transition-all"
-                style={{
-                  maxHeight: "400px",
-                  width: "auto",
-                }} // Prevents unwanted gaps
-              />
+            {imageProps && heightControl ? (
+              <div className="xs:h-[400px] lg:h-[190px] flex align-center justify-center">
+                <img
+                  src={imageProps.src}
+                  alt={post.mainImage?.alt || "Thumbnail"}
+                  className="transition-all"
+                  style={{ objectFit: "contain", width: "auto" }}
+                />
+              </div>
+            ) : imageProps && !heightControl ? (
+              <div className="xs:h-[400px] lg:h-[310px] flex align-center justify-center">
+                <img
+                  src={imageProps.src}
+                  alt={post.mainImage?.alt || "Thumbnail"}
+                  className="transition-all"
+                  style={{ objectFit: "contain", width: "auto" }}
+                />
+              </div>
             ) : (
-              <span className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 text-gray-200">
+              <span className="h-16 w-16 text-gray-200">
                 <PhotoIcon />
               </span>
             )}
+
           </Link>
+
         </div>
 
         <div className={cx(minimal && "flex items-center")}>
@@ -156,7 +164,10 @@ export default function PostList({
           </div>
         </div>
       </div>
-      <div className="align-center mt-[10px] flex w-full flex-row justify-between">
+      <div
+        className="align-center mt-[10px] flex w-full flex-row justify-between"
+        style={{ padding: "0 20px" }}
+      >
         <div className="align-center flex flex-row justify-center gap-2">
           <img src="/static/eye.png" alt="" className="h-[22px] w-[22px]" />
           <p className="h-[22px] w-[22px]">{view}</p>
