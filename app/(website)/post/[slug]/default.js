@@ -36,6 +36,11 @@ const STATIC_IMAGES = [
     src: "/static/image4.png",
     linkKey: "downloadLink4",
     captionKey: "caption4"
+  },
+  {
+    src: "/static/image5.png",
+    linkKey: "downloadLink5",
+    captionKey: "caption5"
   }
 ];
 
