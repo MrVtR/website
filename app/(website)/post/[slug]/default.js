@@ -10,38 +10,35 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // ✅ Correct import
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
-import {
-  getPostBySlug,
-  getCommentsByPostId
-} from "@/lib/sanity/client";
+import { getPostBySlug, getCommentsByPostId } from "@/lib/sanity/client";
 import CommentSection from "@/components/CommentSection";
 
 const STATIC_IMAGES = [
   {
     src: "/static/image1.png",
     linkKey: "downloadLink1",
-    captionKey: "caption1"
+    captionKey: "caption1",
   },
   {
     src: "/static/image2.png",
     linkKey: "downloadLink2",
-    captionKey: "caption2"
+    captionKey: "caption2",
   },
   {
     src: "/static/image3.png",
     linkKey: "downloadLink3",
-    captionKey: "caption3"
+    captionKey: "caption3",
   },
   {
     src: "/static/image4.png",
     linkKey: "downloadLink4",
-    captionKey: "caption4"
+    captionKey: "caption4",
   },
   {
     src: "/static/image5.png",
     linkKey: "downloadLink5",
-    captionKey: "caption5"
-  }
+    captionKey: "caption5",
+  },
 ];
 
 export default function Post(props) {
@@ -75,7 +72,7 @@ export default function Post(props) {
         const response = await fetch("/api/post/updateViews", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId: post._id })
+          body: JSON.stringify({ postId: post._id }),
         });
 
         if (!response.ok) throw new Error("Failed to update views");
@@ -92,9 +89,7 @@ export default function Post(props) {
     updateViews();
   }, [router.pathname]); // Use the pathname as a dependency to trigger the update
 
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
+  const imageProps = post?.mainImage ? urlForImage(post?.mainImage) : null;
 
   const AuthorimageProps = post?.author?.image
     ? urlForImage(post.author.image)
@@ -105,9 +100,10 @@ export default function Post(props) {
       style={{
         backgroundColor: "rgb(0, 0, 0, 0.1)",
         borderRadius: "15px",
-        padding:"0 20px 20px 20px"
+        padding: "0 20px 20px 20px",
       }}
-      className="my-8">
+      className="my-8"
+    >
       <Container>
         <div className="mx-auto max-w-screen-md ">
           <div className="flex justify-center">
@@ -141,7 +137,8 @@ export default function Post(props) {
                 <div className="flex items-center space-x-2 text-sm">
                   <time
                     className="text-gray-500 dark:text-gray-400"
-                    dateTime={post?.publishedAt || post._createdAt}>
+                    dateTime={post?.publishedAt || post._createdAt}
+                  >
                     {format(
                       parseISO(post?.publishedAt || post._createdAt),
                       "dd 'de' MMMM 'de' yyyy",
@@ -168,8 +165,7 @@ export default function Post(props) {
             alt={post.mainImage?.alt || "Thumbnail"}
             loading="eager"
             width={Math.floor(
-              imageProps.height *
-                ((imageProps.width / imageProps.height) * 0.8)
+              imageProps.height * ((imageProps.width / imageProps.height) * 0.8)
             )} // Calculate width based on 70% height and aspect ratio
             height={Math.floor(imageProps.height * 0.8)} // Set the image height to 70% of the original height
             className="object-contain"
@@ -184,40 +180,46 @@ export default function Post(props) {
             <div
               className="grid grid-cols-2 items-center justify-center gap-4"
               style={{
-                columnGap: "3rem"
-              }}>
+                columnGap: "3rem",
+              }}
+            >
               {post.tags &&
-                post.tags.map(tag => (
+                post.tags.map((tag) => (
                   <div key={tag}>
                     <img
                       src={`/profile/${tag}.png`}
                       alt={`Profile ${tag}`}
                       style={{
                         display: "block",
-                        marginTop: "-20px"
+                        marginTop: "-20px",
                       }}
                     />
                   </div>
                 ))}
             </div>
             {post.body2 && <PortableText value={post.body2} />}
-            <img src="/static/baixar.png" alt="DownloadLabel" />
+            {post.downloadLink1 && (
+              <img src="/static/baixar.png" alt="DownloadLabel" />
+            )}
             <div
               className="grid grid-cols-2 items-center justify-center gap-4"
               style={{
-                marginTop: "-50px"
-              }}>
+                marginTop: "-50px",
+              }}
+            >
               {STATIC_IMAGES.map(
                 (image, index) =>
                   post[image.linkKey] && (
                     <div
                       key={index}
-                      className="flex flex-col items-center justify-center">
+                      className="flex flex-col items-center justify-center"
+                    >
                       <a
                         href={post[image.linkKey]}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex justify-center">
+                        className="flex justify-center"
+                      >
                         <img
                           src={image.src}
                           alt={`Download ${index + 1}`}
@@ -228,8 +230,9 @@ export default function Post(props) {
                         <figcaption
                           className="prose text-lg font-bold text-gray-800 dark:text-gray-400"
                           style={{
-                            marginTop: "0px"
-                          }}>
+                            marginTop: "0px",
+                          }}
+                        >
                           {post[image.captionKey]}
                         </figcaption>
                       )}
@@ -241,7 +244,8 @@ export default function Post(props) {
           <div className="mt-10 flex justify-center">
             <Link
               href="/"
-              className="relative inline-flex items-center gap-1 rounded-2xl border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">
+              className="relative inline-flex items-center gap-1 rounded-2xl border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
+            >
               <span>Voltar para a Página Inicial</span>
             </Link>
           </div>
