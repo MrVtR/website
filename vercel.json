@@ -1,9 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "destination": "/",
-      "statusCode": 307
+      "permanent": false
     }
   ]
 }
