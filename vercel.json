@@ -1,7 +1,22 @@
 {
   "redirects": [
     {
-      "source": "/((?!api|_next|static|favicon.ico|.*\\.(ico|png|jpg|jpeg|gif|svg|css|js|json)).*)",
+      "source": "/api/:path*",
+      "destination": "/api/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "/_next/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/:path*\\.(ico|png|jpg|jpeg|gif|svg|css|js|json)",
+      "destination": "/:path*.:ext",
+      "statusCode": 308
+    },
+    {
+      "source": "/:path*",
       "destination": "/",
       "statusCode": 307
     }
