@@ -40,20 +40,10 @@ export default function About() {
         })}
       </div>
 
-      <div className="prose mx-auto mt-14 text-center dark:prose-invert">
+      <div className="prose mx-auto mt-14 text-center text-[18px] dark:prose-invert">
+        <p>Quer traduzir jogos e fazer parte da nossa equipe?</p>
         <p>
-          We provide real-time connectivity to enable software providers and
-          financial institutions to build integrated products for their small
-          business customers.
-        </p>
-        <p>
-          Our API infrastructure is leveraged by clients ranging from lenders to
-          corporate card providers and business forecasting tools, with use
-          cases including automatic reconciliation, business dashboarding, and
-          loan decisioning.
-        </p>
-        <p>
-          <Link href="/contact">Get in touch</Link>
+          <Link href="/contact">Entre em contato conosco!</Link>
         </p>
       </div>
     </Container>

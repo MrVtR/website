@@ -5,16 +5,17 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     dangerouslyAllowSVG: true,
-    remotePatterns: [{ hostname: "cdn.sanity.io" }]
+    remotePatterns: [{ hostname: "cdn.sanity.io" }],
   },
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
-    ignoreBuildErrors: process.env.VERCEL_ENV === "production"
+    ignoreBuildErrors: process.env.VERCEL_ENV === "production",
   },
   eslint: {
     /// Set this to false if you want production builds to abort if there's lint errors
-    ignoreDuringBuilds: process.env.VERCEL_ENV === "production"
-  },experimental: {
+    ignoreDuringBuilds: process.env.VERCEL_ENV === "production",
+  },
+  experimental: {
     esmExternals: "loose", // Add this
   },
 };
