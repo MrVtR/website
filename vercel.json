@@ -1,9 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api|_next|static|favicon.ico|.*\\.(ico|png|jpg|jpeg|gif|svg|css|js|json)).*)",
       "destination": "/",
-      "permanent": false
+      "statusCode": 307
     }
   ]
 }
