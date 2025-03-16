@@ -78,7 +78,7 @@ export default function About() {
         <p>
           Quer traduzir jogos e fazer parte da nossa equipe?
           <br />
-          <Link href="/contact">Entre em contato conosco!</Link>
+          <Link href="/contato">Entre em contato conosco!</Link>
         </p>
       </div>
       {/* Social Media Section */}
