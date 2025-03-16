@@ -4,6 +4,7 @@ import Container from "@/components/container";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useWeb3Forms from "@web3forms/react";
+import Link from "next/link";
 import {
   MapPinIcon,
   EnvelopeIcon,
@@ -54,26 +55,32 @@ export default function Contact({ settings }) {
         </p>
       </div>
 
-      <div className="my-10 grid md:grid-cols-2">
-        <div className="my-10">
-          <h2 className="text-2xl font-semibold dark:text-white">
+      <div className="mx-5 my-10 grid md:grid-cols-2">
+        <div className="my-10 mr-6 text-justify">
+          <h2 className=" text-xl font-semibold dark:text-white">
             Contate a equipe JumpManClub Brasil
           </h2>
           <p className="mt-5 max-w-sm">
             Tem alguma dúvida ou problema ocorrendo com nossas traduções?
             <br />
-            Quer fazer parte da equipe?
             <br />
-            Entre em contato via email ou em nosso Discord!
+            Entre em contato com a gente pelo formulário ao lado ou via Discord!
           </p>
 
-          <div className="mt-5">
-            {settings?.email && (
-              <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-                <EnvelopeIcon className="h-4 w-4" />
-                <a href={`mailto:${settings.email}`}>{settings.email}</a>
-              </div>
-            )}
+          <h2 className="mb-[10px] mt-5 text-xl font-semibold dark:text-white">
+            Quer fazer parte da nossa equipe?
+          </h2>
+          <p className=" max-w-sm">
+            Preencha o fórmulário do Google Forms abaixo e nos avise após isso
+            pelo Discord para podermos entrar em contato com você!
+          </p>
+          <div className="mt-5 flex justify-center">
+            <Link
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfYQHOn30nX9TBVW6z_K4iHwkElJmmKXzh3lMf3ULvEW_sLBQ"
+              className="relative inline-flex items-center gap-1 rounded-2xl border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-300 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-500"
+            >
+              <span>Quero participar da equipe!</span>
+            </Link>
           </div>
         </div>
         <div>
