@@ -93,7 +93,7 @@ export default function SidebarRight(props) {
               Se você curte nosso trabalho, faça uma doação de qualquer valor,
               irá nos ajudar d+ com os custos deste trabalho que apesar de tudo,
               nós distribuímos gratuitamente! <br />
-              <br /> Clique na moeda abaixo para ir para nossa página de doação!
+              <br /> Clique na moeda abaixo para ir à nossa página de doação!
             </p>
           </b>
           <SpinningCoin />
