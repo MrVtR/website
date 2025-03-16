@@ -2,6 +2,7 @@ import Container from "@/components/container";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedSocialIcons from "@/components/AnimatedSocialIcons";
 
 export default function About() {
   const authors = [
@@ -17,6 +18,32 @@ export default function About() {
     { src: "/profile/14.png", url: null },
     { src: "/profile/15.png", url: null },
     { src: "/profile/17.png", url: null },
+  ];
+  const icons_list_url = [
+    {
+      name: "facebook",
+      url: "https://www.facebook.com/groups/162825860900247",
+    },
+    {
+      name: "x",
+      url: "https://x.com/JumpmanClubBR",
+    },
+    {
+      name: "discord",
+      url: "https://discord.gg/ag6YHvzWVD",
+    },
+    {
+      name: "instagram",
+      url: "https://www.instagram.com/jumpmanclubbrasil/",
+    },
+    {
+      name: "youtube",
+      url: "https://www.youtube.com/@Jumpmanclubbrasil",
+    },
+    {
+      name: "whatsapp",
+      url: "https://chat.whatsapp.com/CQL9bbyV5ZTAyzalhWZ0S0",
+    },
   ];
   return (
     <Container>
@@ -39,13 +66,22 @@ export default function About() {
           );
         })}
       </div>
-
-      <div className="prose mx-auto mt-14 text-center text-[18px] dark:prose-invert">
-        <p>Quer traduzir jogos e fazer parte da nossa equipe?</p>
+      <div className="m-[30px] flex flex-col items-center justify-center">
+        <b>
+          <h1 className="w-80 rounded-[25px] bg-red-500 px-4 py-2 text-center text-[20px] text-white">
+            Nos sigam nas redes sociais
+          </h1>
+        </b>
+        <AnimatedSocialIcons icons_list_url={icons_list_url} />
+      </div>
+      <div className="prose mx-auto text-center text-[18px] dark:prose-invert">
         <p>
+          Quer traduzir jogos e fazer parte da nossa equipe?
+          <br />
           <Link href="/contact">Entre em contato conosco!</Link>
         </p>
       </div>
+      {/* Social Media Section */}
     </Container>
   );
 }
