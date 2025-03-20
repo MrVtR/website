@@ -35,7 +35,7 @@ async function sharedMetaData(params: any) {
       default:
         settings?.title ||
         "Stablo Pro - Blog Template for Next.js & Sanity CMS",
-      template: "%s | Stablo"
+      template: "%s"
     },
     description:
       settings?.description ||
