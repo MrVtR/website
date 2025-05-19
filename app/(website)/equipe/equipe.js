@@ -42,7 +42,7 @@ export default function About() {
     },
     {
       name: "whatsapp",
-      url: "https://chat.whatsapp.com/CQL9bbyV5ZTAyzalhWZ0S0",
+      url: "https://chat.whatsapp.com/LPZZpsamWun0FOmW7YATza",
     },
   ];
   return (
