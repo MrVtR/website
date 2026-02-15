@@ -15,10 +15,10 @@ export default function PostList({
   preloadImage,
   fontSize,
   fontWeight,
-  maxHeight
+  maxHeight,
 }) {
   const imageProps = post?.mainImage ? urlForImage(post.mainImage) : null;
-  const heightControl = maxHeight === "190px" ? true : false
+  const heightControl = maxHeight === "190px" ? true : false;
   const AuthorimageProps = post?.author?.image
     ? urlForImage(post.author.image)
     : null;
@@ -57,7 +57,7 @@ export default function PostList({
         >
           <Link
             className={cx(
-              "relative block landscape", // Centers content
+              "landscape relative block", // Centers content
               aspect === "landscape"
                 ? "aspect-video"
                 : aspect === "custom"
@@ -65,10 +65,9 @@ export default function PostList({
                   : "aspect-square"
             )}
             href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug?.current}`}
-
           >
             {imageProps && heightControl ? (
-              <div className="xs:h-[400px] lg:h-[190px] flex align-center justify-center">
+              <div className="align-center flex justify-center xs:h-[400px] lg:h-[190px]">
                 <img
                   src={imageProps.src}
                   alt={post.mainImage?.alt || "Thumbnail"}
@@ -77,7 +76,7 @@ export default function PostList({
                 />
               </div>
             ) : imageProps && !heightControl ? (
-              <div className="xs:h-[400px] lg:h-[310px] flex align-center justify-center">
+              <div className="align-center flex justify-center xs:h-[400px] lg:h-[310px]">
                 <img
                   src={imageProps.src}
                   alt={post.mainImage?.alt || "Thumbnail"}
@@ -90,9 +89,7 @@ export default function PostList({
                 <PhotoIcon />
               </span>
             )}
-
           </Link>
-
         </div>
 
         <div className={cx(minimal && "flex items-center")}>
@@ -168,12 +165,15 @@ export default function PostList({
         className="align-center mt-[10px] flex w-full flex-row justify-between"
         style={{ padding: "0 20px" }}
       >
-        <div className="align-center flex flex-row justify-center gap-2">
-          <img src="/static/eye.png" alt="" className="h-[22px] w-[22px]" />
-          <p className="h-[22px] w-[22px]">{view}</p>
-
-          <img src="/static/comment.png" alt="" className="h-[22px] w-[22px]" />
-          <p className="h-[22px] w-[22px]">{comments}</p>
+        <div className="align-center flex flex-row justify-center gap-2 pl-0 pr-5">
+          <div className="align-center flex flex-row justify-center gap-2">
+            <img src="/static/eye.png" alt="" className="h-[22px]" />
+            <p className="h-[22px]">{view}</p>
+          </div>
+          <div className="align-center flex flex-row justify-center gap-2">
+            <img src="/static/comment.png" alt="" className="h-[22px]" />
+            <p className="h-[22px]">{comments}</p>
+          </div>
         </div>
         <LikeButton postId={post._id} initialLikes={likes} />
       </div>
