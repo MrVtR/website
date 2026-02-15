@@ -20,6 +20,7 @@ export default function SidebarRight(props) {
   }, []);
 
   const years = [
+    { year: 2025, url: "/year/2025" },
     { year: 2024, url: "/year/2024" },
     { year: 2023, url: "/year/2023" },
     { year: 2022, url: "/year/2022" },
@@ -65,7 +66,7 @@ export default function SidebarRight(props) {
       className="mx-auto flex  hidden flex-col gap-8 self-start p-5  dark:text-gray-100 md:hidden  lg:flex"
       style={{
         margin: "40px",
-        maxWidth: "340px",
+        maxWidth: "380px",
         backgroundColor: "rgb(0, 0, 0, 0.1)",
         borderRadius: "15px",
       }}
@@ -171,12 +172,15 @@ export default function SidebarRight(props) {
                   style={{ paddingLeft: "10px" }}
                 >
                   {/* Main Image */}
-                  <img
-                    src={post.imageUrl} // Use the imageUrl from the API route
-                    alt={post.mainImage?.alt || post.title}
-                    style={{ maxWidth: "90px", height: "auto" }}
-                    className="rounded-md"
-                  />
+                  {/* Main Image */}
+                  <div className="h-[90px] w-[110px] flex-shrink-0 overflow-hidden rounded-md">
+                    <img
+                      src={post.imageUrl}
+                      alt={post.mainImage?.alt || post.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+
                   {/* Post Title */}
                   <h1 className="text-[16px] font-bold text-black hover:text-red-500 dark:text-white dark:hover:text-red-400">
                     {post.title}
