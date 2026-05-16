@@ -8,6 +8,7 @@ export default function CommentSection({ postId, comments }) {
   const [replyingTo, setReplyingTo] = useState(null); // ✅ Track reply target
   const [nestedComments, setNestedComments] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null); // Track success message
+  const [errorMessage, setErrorMessage] = useState(null); // Track error message
 
   // Create a reference for the username input field
   const usernameInputRef = useRef(null);
@@ -62,10 +63,19 @@ export default function CommentSection({ postId, comments }) {
 
       // Set the success message
       setSuccessMessage("Comentário publicado com sucesso!");
+      setErrorMessage(null);
 
       // Hide the success message after 5 seconds
       setTimeout(() => {
         setSuccessMessage(null);
+      }, 5000);
+    } else {
+      const errorData = await res.json();
+      setErrorMessage(errorData.message || "Erro ao enviar comentário.");
+      setSuccessMessage(null);
+      
+      setTimeout(() => {
+        setErrorMessage(null);
       }, 5000);
     }
 
@@ -163,6 +173,13 @@ export default function CommentSection({ postId, comments }) {
       {successMessage && (
         <div className="mt-4 text-green-500 font-semibold">
           {successMessage}
+        </div>
+      )}
+
+      {/* Display error message */}
+      {errorMessage && (
+        <div className="mt-4 text-red-500 font-semibold">
+          {errorMessage}
         </div>
       )}
 

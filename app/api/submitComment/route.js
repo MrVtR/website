@@ -21,6 +21,14 @@ export async function POST(req) {
       );
     }
 
+    const lowerText = text.toLowerCase();
+    if (lowerText.includes("telegram") || lowerText.includes("business")) {
+      return NextResponse.json(
+        { message: "Spam detected." },
+        { status: 400 }
+      );
+    }
+
     const commentData = {
       _type: "comment",
       post: { _type: "reference", _ref: postId },
