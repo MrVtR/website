@@ -20,6 +20,7 @@ export default function SidebarRight(props) {
   }, []);
 
   const years = [
+    { year: 2026, url: "/year/2026" },
     { year: 2025, url: "/year/2025" },
     { year: 2024, url: "/year/2024" },
     { year: 2023, url: "/year/2023" },
